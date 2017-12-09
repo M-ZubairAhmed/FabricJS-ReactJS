@@ -156,7 +156,8 @@ export default class Canva extends React.Component {
 				text: newProps.customText,
 				fontSize: 30,
 				fontFamily: 'Calibri',
-				fill: 'green'
+				fill: 'green',
+				fontStyle: newProps.fontStyle
 			});
 
 			textCanvas.on('mouseover', function() {
