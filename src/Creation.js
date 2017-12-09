@@ -56,7 +56,7 @@ export default class Creation extends React.Component {
   saveCreatingTrophy = () => {
     html2canvas(this.myDiv).then(canvas => {
       this.myDiv.appendChild(canvas)
-      // const trophyImageEncode = canvas.toDataURL('')
+      const trophyImageEncode = canvas.toDataURL('image/png')
       // const trophyImageDecode = trophyImageEncode.replace(
       //   /^data:image\/(png|jpg);base64,/,
       //   '',
