@@ -1,20 +1,20 @@
-import React from 'react'
-import { Button, Col, Panel, ListGroup, ListGroupItem } from 'react-bootstrap'
-import Selector from './Selector'
-import { trophiesShoots, trophiesStems, trophiesRoots } from './mock'
-import html2canvas from 'html2canvas'
-import cloudinary from 'cloudinary'
-import { cloudinaryConfig } from './secret'
+import React from 'react';
+import { Button, Col, Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
+import Selector from './Selector';
+import { trophiesShoots, trophiesStems, trophiesRoots } from './mock';
+import html2canvas from 'html2canvas';
+import cloudinary from 'cloudinary';
+import { cloudinaryConfig } from './secret';
 
 export default class Creation extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       shootSelection: 0,
       stemSelection: 0,
       rootSelection: 0,
-    }
-    const cloudinaryImages = cloudinary.config(cloudinaryConfig)
+    };
+    cloudinary.config(cloudinaryConfig);
   }
 
   getActiveSelection = (activeIndex, selectionPart) => {
@@ -22,24 +22,23 @@ export default class Creation extends React.Component {
       case 'shoot':
         this.setState({
           shootSelection: activeIndex,
-        })
-        break
+        });
+        break;
       case 'stem':
         this.setState({
           stemSelection: activeIndex,
-        })
-        break
+        });
+        break;
       case 'root':
         this.setState({
           rootSelection: activeIndex,
-        })
-        break
+        });
+        break;
       default:
     }
-  }
+  };
 
   renderPreview() {
-    //Todo
     return (
       <ListGroup>
         <h5>Preview</h5>
@@ -53,26 +52,29 @@ export default class Creation extends React.Component {
           Root
         </ListGroupItem>
       </ListGroup>
-    )
+    );
   }
 
   saveCreatingTrophy = () => {
+    const uniqueIdPasses =
+      this.props.uniqueId === '' || this.props.uniqueId === null
+        ? new Date()
+        : this.props.uniqueId;
     html2canvas(this.myDiv).then(canvas => {
-      const createdImage = canvas.toDataURL('image/png', 1.0)
-      // console.log(trophyImageEncode)
+      const createdImage = canvas.toDataURL('image/png', 1.0);
       cloudinary.uploader.upload(createdImage, result => {}, {
-        public_id: 'ass',
-      })
-    })
-  }
+        public_id: uniqueIdPasses,
+      });
+    });
+  };
 
   render() {
     const editorStyles = {
       marginTop: '10rem',
-    }
+    };
     const smallImage = {
       width: '50px',
-    }
+    };
 
     return (
       <div style={editorStyles}>
@@ -99,18 +101,21 @@ export default class Creation extends React.Component {
             <div ref={c => (this.myDiv = c)}>
               <div>
                 <img
+                  alt="shoot"
                   style={smallImage}
                   src={trophiesShoots[this.state.shootSelection]}
                 />
               </div>
               <div>
                 <img
+                  alt="stem"
                   style={smallImage}
                   src={trophiesStems[this.state.stemSelection]}
                 />
               </div>
               <div>
                 <img
+                  alt="root"
                   style={smallImage}
                   src={trophiesRoots[this.state.rootSelection]}
                 />
@@ -123,6 +128,6 @@ export default class Creation extends React.Component {
           </Panel>
         </Col>
       </div>
-    )
+    );
   }
 }
