@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Row, Col } from 'react-bootstrap'
 import Canva from './Canva'
+import Creation from './Creation'
 
 const UrlFromClient = new URL(window.location.href)
 
@@ -16,11 +17,11 @@ class App extends Component {
 
   renderCustomizationProduct() {
     return (
-      <Grid.Row>
-        <Grid.Column width={8}>
+      <Row>
+        <Col lg={8}>
           <Canva {...this.state} />
-        </Grid.Column>
-        <Grid.Column width={6}>
+        </Col>
+        <Col lg={4}>
           <div style={{ border: '1px solid #000', margin: 10, padding: 10 }}>
             <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
               Customization Tools
@@ -36,24 +37,22 @@ class App extends Component {
               />
             </div>
           </div>
-        </Grid.Column>
-      </Grid.Row>
+        </Col>
+      </Row>
     )
   }
 
   renderCreatingProduct() {
     return (
-      <Grid.Row>
-        <Grid.Column width={8}>
-          <div>here is canvas</div>
-        </Grid.Column>
-      </Grid.Row>
+      <Row>
+        <Creation />
+      </Row>
     )
   }
 
   render() {
     return (
-      <Grid padded>
+      <Grid>
         {this.state.productType === 'trophy'
           ? this.renderCreatingProduct()
           : this.renderCustomizationProduct()}
