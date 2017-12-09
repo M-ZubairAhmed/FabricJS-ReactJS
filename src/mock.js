@@ -1,17 +1,15 @@
-export const trophiesShoots = [
-  'https://cdn.discordapp.com/attachments/361409215719407617/389075449541820417/shoot-2.jpg',
-  'https://cdn.discordapp.com/attachments/361409215719407617/389075618224144385/shoot-3.jpg',
-  'https://cdn.discordapp.com/attachments/361409215719407617/389075448446844928/shoot-1.jpg',
-]
+import root_1 from './trophies/root_1.jpg'
+import root_2 from './trophies/root_2.jpg'
+import root_3 from './trophies/root_3.jpg'
+import stem_1 from './trophies/stem_1.jpg'
+import stem_2 from './trophies/stem_2.jpg'
+import stem_3 from './trophies/stem_3.jpg'
+import shoot_1 from './trophies/shoot_1.jpg'
+import shoot_2 from './trophies/shoot_2.jpg'
+import shoot_3 from './trophies/shoot_3.jpg'
 
-export const trophiesStems = [
-  'https://cdn.discordapp.com/attachments/361409215719407617/389075455573098496/stem-3.jpg',
-  'https://cdn.discordapp.com/attachments/361409215719407617/389075453958291456/stem-2.jpg',
-  'https://cdn.discordapp.com/attachments/361409215719407617/389075452012134400/stem-1.jpg',
-]
+export const trophiesShoots = [shoot_1, shoot_2, shoot_3]
 
-export const trophiesRoots = [
-  'https://cdn.discordapp.com/attachments/361409215719407617/389075446891020288/root-3.jpg',
-  'https://cdn.discordapp.com/attachments/361409215719407617/389075446052028419/root-2.jpg',
-  'https://cdn.discordapp.com/attachments/361409215719407617/389075443787104256/root-1.jpg',
-]
+export const trophiesStems = [stem_1, stem_2, stem_3]
+
+export const trophiesRoots = [root_1, root_2, root_3]
