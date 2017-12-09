@@ -1,29 +1,38 @@
 import React from 'react'
 import Konva from 'konva'
 
-let size, centerPosition
 export default class Canva extends React.Component {
-  state = {
-    size: this.selectCanvasDim(this.props.type),
-  }
-  selectCanvasDim() {
-    switch (this.props.type) {
-      case 'shirt':
-        size = 300
-        break
-      case 'mug':
-        size = 100
-        break
-      default:
-        size = 0
+  constructor(props) {
+    super(props)
+    this.state = {
+      size: this.calculateCanvasDim(this.props.productType),
+      insertedNewImage: 'http://lorempixel.com/100/100',
+      backgroundImageSize: 600,
+      insertedNewImagePosition: this.calculateCenterPosition(600),
     }
-    centerPosition = (700 - size) / 2
-    return size
+  }
+
+  calculateCanvasDim(type) {
+    switch (type) {
+      case 'shirt':
+        return 300
+      case 'mug':
+        return 200
+      default:
+        return 0
+    }
+  }
+
+  calculateCenterPosition(backgroundImageSize) {
+    return (
+      (backgroundImageSize - this.calculateCanvasDim(this.props.productType)) /
+      2
+    )
   }
 
   componentDidMount() {
-    var width = 200
-    var height = 200
+    const width = this.state.size
+    const height = this.state.size
 
     function update(activeAnchor) {
       var group = activeAnchor.getParent()
@@ -91,7 +100,6 @@ export default class Canva extends React.Component {
         group.setDraggable(true)
         layer.draw()
       })
-      // add hover styling
       anchor.on('mouseover', function() {
         var layer = this.getLayer()
         document.body.style.cursor = 'pointer'
@@ -104,12 +112,11 @@ export default class Canva extends React.Component {
         this.setStrokeWidth(2)
         layer.draw()
       })
-
       group.add(anchor)
     }
 
     var stage = new Konva.Stage({
-      container: 'container',
+      container: 'canvasContainer',
       width: width,
       height: height,
     })
@@ -117,76 +124,52 @@ export default class Canva extends React.Component {
     var layer = new Konva.Layer()
     stage.add(layer)
 
-    // darth vader
-    var darthVaderImg = new Konva.Image({
+    var imageCanvas = new Konva.Image({
       width: 100,
       height: 100,
     })
 
-    // yoda
-    var yodaImg = new Konva.Image({
-      width: 100,
-      height: 100,
-    })
-
-    var darthVaderGroup = new Konva.Group({
-      x: 180,
-      y: 50,
+    var imageGroup = new Konva.Group({
+      x: 0,
+      y: 0,
       draggable: true,
     })
-    layer.add(darthVaderGroup)
-    darthVaderGroup.add(darthVaderImg)
-    addAnchor(darthVaderGroup, 0, 0, 'topLeft')
-    addAnchor(darthVaderGroup, 100, 0, 'topRight')
-    addAnchor(darthVaderGroup, 100, 100, 'bottomRight')
-    addAnchor(darthVaderGroup, 0, 100, 'bottomLeft')
 
-    var yodaGroup = new Konva.Group({
-      x: 20,
-      y: 110,
-      draggable: true,
-    })
-    layer.add(yodaGroup)
-    yodaGroup.add(yodaImg)
-    addAnchor(yodaGroup, 0, 0, 'topLeft')
-    addAnchor(yodaGroup, 100, 0, 'topRight')
-    addAnchor(yodaGroup, 100, 100, 'bottomRight')
-    addAnchor(yodaGroup, 0, 100, 'bottomLeft')
+    layer.add(imageGroup)
+    imageGroup.add(imageCanvas)
 
-    var imageObj1 = new Image()
-    imageObj1.onload = function() {
-      darthVaderImg.image(imageObj1)
+    addAnchor(imageGroup, 0, 0, 'topLeft')
+    addAnchor(imageGroup, 100, 0, 'topRight')
+    addAnchor(imageGroup, 100, 100, 'bottomRight')
+    addAnchor(imageGroup, 0, 100, 'bottomLeft')
+
+    var imageObj = new Image()
+    imageObj.onload = function() {
+      imageCanvas.image(imageObj)
       layer.draw()
     }
-    imageObj1.src = 'http://lorempixel.com/100/100'
-
-    var imageObj2 = new Image()
-    imageObj2.onload = function() {
-      yodaImg.image(imageObj2)
-      layer.draw()
-    }
-    imageObj2.src = 'http://lorempixel.com/100/100'
+    imageObj.src = this.state.insertedNewImage
   }
 
   render() {
-    const canvaContainer = {
-      backgroundImage: `url(${this.props.image})`,
+    const rootStyle = {
+      backgroundImage: `url(${this.props.backgroundImage})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: '100% 100%',
-      height: '700px',
-      width: '700px',
+      height: `${this.state.backgroundImageSize}px`,
+      width: `${this.state.backgroundImageSize}px`,
     }
 
-    const stageStyle = {
-      top: `${centerPosition}px`,
-      left: `${centerPosition}px`,
+    const rootCanvasStyle = {
+      top: `${this.state.insertedNewImagePosition}px`,
+      left: `${this.state.insertedNewImagePosition}px`,
       position: 'absolute',
       border: '1px dashed white',
     }
 
     return (
-      <div style={canvaContainer}>
-        <div style={stageStyle} id="container" />
+      <div style={rootStyle}>
+        <div style={rootCanvasStyle} id="canvasContainer" />
       </div>
     )
   }

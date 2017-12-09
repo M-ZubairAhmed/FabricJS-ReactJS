@@ -5,16 +5,12 @@ import Canva from './Canva'
 const UrlFromClient = new URL(window.location.href)
 
 class App extends Component {
-  state = {
-    originalImageURL: '',
-    productType: '',
-  }
-
-  componentDidMount() {
-    this.setState({
+  constructor() {
+    super()
+    this.state = {
       originalImageURL: UrlFromClient.searchParams.get('originalImageURL'),
       productType: UrlFromClient.searchParams.get('productType'),
-    })
+    }
   }
 
   render() {
@@ -23,8 +19,8 @@ class App extends Component {
         <Grid.Row>
           <Grid.Column width={12}>
             <Canva
-              image={this.state.originalImageURL}
-              type={this.state.productType}
+              backgroundImage={this.state.originalImageURL}
+              productType={this.state.productType}
             />
           </Grid.Column>
           <Grid.Column width={4} />
