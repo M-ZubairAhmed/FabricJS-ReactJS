@@ -41,7 +41,7 @@ export default class Creation extends React.Component {
   renderPreview() {
     return (
       <ListGroup>
-        <h5>Preview</h5>
+        <h5>Selected product no.</h5>
         <ListGroupItem header={`${this.state.shootSelection}`}>
           Shoot
         </ListGroupItem>
@@ -97,34 +97,38 @@ export default class Creation extends React.Component {
         </Col>
         <Col lgOffset={1} lg={3}>
           <Panel>
+            <h4>Create your Product</h4>
             {this.renderPreview()}
-            <div ref={c => (this.myDiv = c)}>
-              <div>
-                <img
-                  alt="shoot"
-                  style={smallImage}
-                  src={trophiesShoots[this.state.shootSelection]}
-                />
+            <Panel>
+              <h5>Preview</h5>
+              <div ref={c => (this.myDiv = c)}>
+                <div>
+                  <img
+                    alt="shoot"
+                    style={smallImage}
+                    src={trophiesShoots[this.state.shootSelection]}
+                  />
+                </div>
+                <div>
+                  <img
+                    alt="stem"
+                    style={smallImage}
+                    src={trophiesStems[this.state.stemSelection]}
+                  />
+                </div>
+                <div>
+                  <img
+                    alt="root"
+                    style={smallImage}
+                    src={trophiesRoots[this.state.rootSelection]}
+                  />
+                </div>
               </div>
-              <div>
-                <img
-                  alt="stem"
-                  style={smallImage}
-                  src={trophiesStems[this.state.stemSelection]}
-                />
-              </div>
-              <div>
-                <img
-                  alt="root"
-                  style={smallImage}
-                  src={trophiesRoots[this.state.rootSelection]}
-                />
-              </div>
-            </div>
+            </Panel>
+            <Button block>Cancel</Button>
             <Button block bsStyle="success" onClick={this.saveCreatingTrophy}>
               Confirm Selection
             </Button>
-            <Button block>Cancel</Button>
           </Panel>
         </Col>
       </div>

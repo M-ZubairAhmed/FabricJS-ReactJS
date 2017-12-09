@@ -1,5 +1,6 @@
 import React from 'react';
 import Konva from 'konva';
+import './styles.css';
 
 export default class Canva extends React.Component {
   constructor(props) {
@@ -154,8 +155,7 @@ export default class Canva extends React.Component {
         y: 20,
         text: newProps.customText,
         fontSize: 30,
-        fontFamily: 'Calibri',
-        fill: 'green',
+        fill: 'black',
         fontStyle: newProps.fontStyle,
       });
 

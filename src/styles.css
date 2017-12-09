@@ -1,3 +1,6 @@
 .slick-arrow slick-prev {
   color: #d3d3d3;
 }
+.stickerDesignImage:hover {
+  border: 1px solid black;
+}
