@@ -3,6 +3,8 @@ import { Button, Col, Panel, ListGroup, ListGroupItem } from 'react-bootstrap'
 import Selector from './Selector'
 import { trophiesShoots, trophiesStems, trophiesRoots } from './mock'
 import html2canvas from 'html2canvas'
+import cloudinary from 'cloudinary'
+import { cloudinaryConfig } from './secret'
 
 export default class Creation extends React.Component {
   constructor(props) {
@@ -12,6 +14,7 @@ export default class Creation extends React.Component {
       stemSelection: 0,
       rootSelection: 0,
     }
+    const cloudinaryImages = cloudinary.config(cloudinaryConfig)
   }
 
   getActiveSelection = (activeIndex, selectionPart) => {
@@ -55,13 +58,11 @@ export default class Creation extends React.Component {
 
   saveCreatingTrophy = () => {
     html2canvas(this.myDiv).then(canvas => {
-      this.myDiv.appendChild(canvas)
-      const trophyImageEncode = canvas.toDataURL('image/png')
-      // const trophyImageDecode = trophyImageEncode.replace(
-      //   /^data:image\/(png|jpg);base64,/,
-      //   '',
-      // )
-      // console.log(trophyImageDecode)
+      const createdImage = canvas.toDataURL('image/png', 1.0)
+      // console.log(trophyImageEncode)
+      cloudinary.uploader.upload(createdImage, result => {}, {
+        public_id: 'ass',
+      })
     })
   }
 
