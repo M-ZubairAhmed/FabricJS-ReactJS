@@ -10,7 +10,8 @@ class App extends Component {
 		this.state = {
 			backgroundImage: UrlFromClient.searchParams.get('originalImageURL'),
 			productType: UrlFromClient.searchParams.get('productType'),
-			customImageURL: 'http://lorempixel.com/100/100/'
+			customImageURL: 'http://lorempixel.com/100/100/',
+			customText: 'Hello React!'
 		};
 	}
 
@@ -35,6 +36,14 @@ class App extends Component {
 										this.setState({ customImageURL: e.target.value })}
 								/>
 							</div>
+							<div style={{ display: 'flex' }}>
+								<div style={{ marginRight: 10 }}>Add customized text:</div>
+								<input
+									size="40"
+									placeholder="Enter text"
+									onChange={e => this.setState({ customText: e.target.value })}
+								/>
+							</div>
 						</div>
 					</Grid.Column>
 				</Grid.Row>
@@ -42,5 +51,18 @@ class App extends Component {
 		);
 	}
 }
+
+const CustomInput = ({ inputParameter, onChangeHandler, placeholderText }) => {
+	return (
+		<div style={{ display: 'flex' }}>
+			<div style={{ display: 'flex-start' }}>{inputParameter}</div>
+			<input
+				size="40"
+				placeholder={placeholderText}
+				onChange={onChangeHandler()}
+			/>
+		</div>
+	);
+};
 
 export default App;

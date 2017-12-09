@@ -8,8 +8,7 @@ export default class Canva extends React.Component {
 		this.state = {
 			size: this.calculateCanvasDim(this.props.productType),
 			backgroundImageSize: 600,
-			insertedNewImagePosition: this.calculateCenterPosition(600),
-			insertedText: 'Hello world'
+			insertedNewImagePosition: this.calculateCenterPosition(600)
 		};
 	}
 
@@ -32,7 +31,7 @@ export default class Canva extends React.Component {
 	}
 
 	componentWillReceiveProps(newProps) {
-		if (this.props.customImageURL !== newProps.customImageURL) {
+		if (this.props !== newProps) {
 			const width = this.state.size;
 			const height = this.state.size;
 
@@ -154,7 +153,7 @@ export default class Canva extends React.Component {
 			var textCanvas = new Konva.Text({
 				x: 20,
 				y: 20,
-				text: this.state.insertedText,
+				text: newProps.customText,
 				fontSize: 30,
 				fontFamily: 'Calibri',
 				fill: 'green'
