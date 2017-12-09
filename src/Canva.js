@@ -1,7 +1,6 @@
 import React from 'react';
 import Konva from 'konva';
 
-let savingURL;
 export default class Canva extends React.Component {
 	constructor(props) {
 		super(props);
