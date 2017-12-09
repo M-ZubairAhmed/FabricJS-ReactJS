@@ -129,6 +129,14 @@ export default class Canva extends React.Component {
       height: 100,
     })
 
+    imageCanvas.on('mouseover', function() {
+      document.body.style.cursor = 'move'
+    })
+
+    imageCanvas.on('mouseout', function() {
+      document.body.style.cursor = 'default'
+    })
+
     var imageGroup = new Konva.Group({
       x: 0,
       y: 0,
