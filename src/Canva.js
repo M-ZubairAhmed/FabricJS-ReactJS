@@ -1,6 +1,7 @@
 import React from 'react'
 import Konva from 'konva'
 
+let savingURL
 export default class Canva extends React.Component {
   constructor(props) {
     super(props)
@@ -9,6 +10,7 @@ export default class Canva extends React.Component {
       insertedNewImage: 'http://lorempixel.com/100/100',
       backgroundImageSize: 600,
       insertedNewImagePosition: this.calculateCenterPosition(600),
+      insertedText: 'Hello world',
     }
   }
 
@@ -157,6 +159,32 @@ export default class Canva extends React.Component {
       layer.draw()
     }
     imageObj.src = this.state.insertedNewImage
+
+    var textCanvas = new Konva.Text({
+      x: 20,
+      y: 20,
+      text: this.state.insertedText,
+      fontSize: 30,
+      fontFamily: 'Calibri',
+      fill: 'green',
+    })
+
+    textCanvas.on('mouseover', function() {
+      document.body.style.cursor = 'move'
+    })
+
+    textCanvas.on('mouseout', function() {
+      document.body.style.cursor = 'default'
+    })
+
+    var textGroup = new Konva.Group({
+      x: 0,
+      y: 0,
+      draggable: true,
+    })
+
+    layer.add(textGroup)
+    textGroup.add(textCanvas)
   }
 
   render() {
