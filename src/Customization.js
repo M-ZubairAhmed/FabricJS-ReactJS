@@ -123,7 +123,7 @@ export default class Customization extends React.Component {
             </Button>
           </Panel>
         </Col>
-        <Modal show={this.state.showModal} bsSize="huge">
+        <Modal show={this.state.showModal}>
           <Modal.Header closeButton>
             <Modal.Title>Customization Successfull</Modal.Title>
           </Modal.Header>

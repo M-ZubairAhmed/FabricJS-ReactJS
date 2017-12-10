@@ -1,6 +1,5 @@
 import React from 'react';
 import Konva from 'konva';
-import './styles.css';
 import { Button } from 'react-bootstrap';
 
 let stage;

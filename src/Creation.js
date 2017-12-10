@@ -141,7 +141,7 @@ export default class Creation extends React.Component {
               Confirm Selection
             </Button>
           </Panel>
-          <Modal show={this.state.showModal} bsSize="huge">
+          <Modal show={this.state.showModal}>
             <Modal.Header closeButton>
               <Modal.Title>Customization Successfull</Modal.Title>
             </Modal.Header>
