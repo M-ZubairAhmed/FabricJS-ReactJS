@@ -8,7 +8,6 @@ import {
   Image,
   Modal,
 } from 'react-bootstrap';
-import Konva from 'konva';
 import cloudinary from 'cloudinary';
 import { cloudinaryConfig } from './secret';
 
