@@ -6,27 +6,57 @@ import {
   FormGroup,
   FormControl,
   Image,
+  Modal,
 } from 'react-bootstrap';
+import Konva from 'konva';
+import cloudinary from 'cloudinary';
+import { cloudinaryConfig } from './secret';
 
 import Canva from './Canva';
 import { stickerDesigns } from './mock';
 
+let imageCustomized = '';
 export default class Customization extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       customImageURL: '',
       customText: '',
+      showModal: false,
     };
+    cloudinary.config(cloudinaryConfig);
   }
+
+  getPaintedCanvas = (canvas, dx) => {
+    imageCustomized = canvas.toDataURL('image/png', 1.0);
+  };
+
+  saveCustomizedProduct = createdImage => {
+    const uniqueIdPasses =
+      this.props.uniqueId === '' || this.props.uniqueId === null
+        ? new Date()
+        : this.props.uniqueId;
+    if (createdImage !== '') {
+      cloudinary.uploader.upload(createdImage, result => {}, {
+        public_id: uniqueIdPasses,
+      });
+      this.setState({
+        showModal: true,
+      });
+    }
+  };
+
   render() {
     const stickerDesignStyle = {
       width: '50px',
       height: '50px',
       cursor: 'pointer',
     };
+    const editorStyles = {
+      marginTop: '4rem',
+    };
     return (
-      <div>
+      <div style={editorStyles}>
         <Col lg={8}>
           <Canva
             backgroundImage={this.props.backgroundImage}
@@ -34,6 +64,7 @@ export default class Customization extends React.Component {
             customText={this.state.customText}
             customImageURL={this.state.customImageURL}
             fontStyle={this.props.fontStyle}
+            getPaintedCanvas={this.getPaintedCanvas}
           />
         </Col>
         <Col lg={4}>
@@ -84,11 +115,23 @@ export default class Customization extends React.Component {
               </Button>
             </Panel>
             <Button block>Cancel</Button>
-            <Button block bsStyle="success">
+            <Button
+              block
+              bsStyle="success"
+              onClick={() => this.saveCustomizedProduct(imageCustomized)}
+            >
               Confirm Changes
             </Button>
           </Panel>
         </Col>
+        <Modal show={this.state.showModal} bsSize="huge">
+          <Modal.Header closeButton>
+            <Modal.Title>Customization Successfull</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            You may now add the your customized product to cart
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }
@@ -97,6 +140,7 @@ export default class Customization extends React.Component {
 const CustomInput = ({ inputParameter, onChangeHandler, placeholderText }) => {
   return (
     <form>
+      <div id="container" />
       <FormGroup controlId="formBasicText">
         <h5>{inputParameter}</h5>
         <FormControl

@@ -1,5 +1,12 @@
 import React from 'react';
-import { Button, Col, Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
+import {
+  Button,
+  Col,
+  Panel,
+  ListGroup,
+  ListGroupItem,
+  Modal,
+} from 'react-bootstrap';
 import Selector from './Selector';
 import { trophiesShoots, trophiesStems, trophiesRoots } from './mock';
 import html2canvas from 'html2canvas';
@@ -13,6 +20,7 @@ export default class Creation extends React.Component {
       shootSelection: 0,
       stemSelection: 0,
       rootSelection: 0,
+      showModal: false,
     };
     cloudinary.config(cloudinaryConfig);
   }
@@ -65,6 +73,9 @@ export default class Creation extends React.Component {
       cloudinary.uploader.upload(createdImage, result => {}, {
         public_id: uniqueIdPasses,
       });
+    });
+    this.setState({
+      showModal: true,
     });
   };
 
@@ -130,6 +141,14 @@ export default class Creation extends React.Component {
               Confirm Selection
             </Button>
           </Panel>
+          <Modal show={this.state.showModal} bsSize="huge">
+            <Modal.Header closeButton>
+              <Modal.Title>Customization Successfull</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              You may now add the your customized product to cart
+            </Modal.Body>
+          </Modal>
         </Col>
       </div>
     );

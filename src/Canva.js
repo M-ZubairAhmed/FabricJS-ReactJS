@@ -1,7 +1,9 @@
 import React from 'react';
 import Konva from 'konva';
 import './styles.css';
+import { Button } from 'react-bootstrap';
 
+let stage;
 export default class Canva extends React.Component {
   constructor(props) {
     super(props);
@@ -116,14 +118,13 @@ export default class Canva extends React.Component {
         group.add(anchor);
       }
 
-      var stage = new Konva.Stage({
+      stage = new Konva.Stage({
         container: 'canvasContainer',
         width: width,
         height: height,
       });
 
       var layer = new Konva.Layer();
-      stage.add(layer);
 
       var imageCanvas = new Konva.Image({
         width: 100,
@@ -175,6 +176,7 @@ export default class Canva extends React.Component {
 
       layer.add(textGroup);
       textGroup.add(textCanvas);
+      stage.add(layer);
     }
   }
 
@@ -197,6 +199,17 @@ export default class Canva extends React.Component {
     return (
       <div style={rootStyle}>
         <div style={rootCanvasStyle} id="canvasContainer" />
+        <Button
+          bsStyle="info"
+          onClick={() =>
+            this.props.getPaintedCanvas(
+              stage,
+              this.state.insertedNewImagePosition,
+            )
+          }
+        >
+          Save
+        </Button>
       </div>
     );
   }
